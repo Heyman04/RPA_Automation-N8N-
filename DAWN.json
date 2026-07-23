@@ -1,0 +1,407 @@
+{
+  "name": "DAWN",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -752,
+        512
+      ],
+      "id": "fcc93c63-cdeb-45b7-81f0-47eb13c17860",
+      "name": "Webhook",
+      "webhookId": "1b3c1fa7-9859-4d4a-a0c4-370937dcb251"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        48
+      ],
+      "id": "5ef273c1-8b49-4889-8be2-5271f1f440b8",
+      "name": "Groq Chat Model"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"reply\": \"Connected Successfully\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        736,
+        496
+      ],
+      "id": "bf87a9a1-ae1d-44aa-96dd-4bd3dd9f2007",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -384,
+        32
+      ],
+      "id": "3b007a12-42c7-4f88-b965-ea9c12552bbe",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        496
+      ],
+      "id": "012e061c-0ccb-4044-a9c7-9717cf2a761f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "model": "=llama3.2",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        16
+      ],
+      "id": "f6b4a38c-09b1-46d2-b9e6-8a1f1d91b68d",
+      "name": "Ollama Chat Model"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -816,
+        976
+      ],
+      "id": "ca5b72b2-6ef7-40eb-9e73-94a1513fd8cf",
+      "name": "When chat message received",
+      "webhookId": "e1c965fe-1c63-4745-a765-ab69bdaee037"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        768
+      ],
+      "id": "c88bbba1-b4b6-4c9b-ae3b-551fa2121a19",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a9480e77-ffaa-4de3-a88c-d589fdb98f36",
+      "name": "OpenRouter Chat Model"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        160,
+        16
+      ],
+      "id": "4cc4b47e-fa82-4fa6-b657-0c261360ccc1",
+      "name": "Mistral Cloud Chat Model"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        160
+      ],
+      "id": "de0d64ab-92b6-4929-9755-fe32b7869766",
+      "name": "AI Agent GROQ"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        384
+      ],
+      "id": "76c80cfc-0794-4793-bff4-0a6de0727eb5",
+      "name": "AI Agent Gemini"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        576
+      ],
+      "id": "11b4d6ee-d26e-4534-99fb-e3f511293e25",
+      "name": "AI Agent OLLAMA"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        960
+      ],
+      "id": "c63b1898-e696-4023-bb37-4aff7e2c3734",
+      "name": "AI Agent MISTRAL"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "history",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        736
+      ],
+      "id": "281021b5-072a-458c-a941-b99936111ec6",
+      "name": "Insert documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "jKofSk2A4lzvft7g",
+          "name": "MongoDB account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent GROQ",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent Gemini",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent OLLAMA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent MISTRAL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent GROQ",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent Gemini",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent OLLAMA",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent MISTRAL",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent GROQ": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent Gemini": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent OLLAMA": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          },
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent MISTRAL": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          },
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c0953c63-3779-4e20-be01-f30af0b39a7a",
+  "meta": {
+    "instanceId": "07d87fea9e6355e66735081caaaa6d95f7fcf48195b64683e73e6c3323b83322"
+  },
+  "nodeGroups": [],
+  "id": "ytqkEh8Kzs7KYK6q",
+  "tags": []
+}
